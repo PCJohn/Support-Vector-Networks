@@ -114,17 +114,18 @@ def do_video():
             contours, hierarchy = cv2.findContours(foreground, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         else:
             __, contours, hierarchy = cv2.findContours(foreground, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-        px = []
-        loc = []
+        to_classify = []
+        location = []
         for contour in contours:
             xpos, ypos, width, height = cv2.boundingRect(contour)
             if (width > 5) & (height > 5):
-                px.append(inria.feat(cv2.resize(frame[ypos:ypos+height, xpos:xpos+width], inria.SIZE)))
-                loc.append(((xpos, ypos), (xpos+width, ypos+height)))
-        if len(px) > 0:
-            py = clf.predict(np.array(px))
-            for y, l in zip(py, loc):
-                if y == 1:
+                resized_rectangle = cv2.resize(frame[ypos:ypos+height, xpos:xpos+width], inria.SIZE)
+                to_classify.append(inria.feat(resized_rectangle))
+                location.append(((xpos, ypos), (xpos+width, ypos+height)))
+        if to_classify:
+            classification = clf.predict(np.array(to_classify))
+            for result, l in zip(classification, location):
+                if result == 1:
                     cv2.rectangle(frame, l[0], l[1], (255, 255, 255), 3)
 
         #Display frame
