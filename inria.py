@@ -5,7 +5,7 @@ import numpy as np
 from ast import literal_eval
 
 COL = False
-PATH = '/home/prithvi/dsets/INRIAPerson/'
+PATH = '/Users/jkausha/Projects/Support-Vector-Networks/datasets/INRIAPerson/'
 POS = 1
 NEG = 0
 SIZE = (64,128)

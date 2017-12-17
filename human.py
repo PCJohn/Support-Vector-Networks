@@ -10,6 +10,7 @@ import inria
 model = './human_model.pkl'
 #model = './clf.pkl'
 
+VIDEO_PATH = '/Users/jkausha/Projects/Support-Vector-Networks/datasets/AVSS_AB_Easy_Divx.avi'
 FSIZE = (300,300)
 
 
@@ -85,13 +86,16 @@ if sys.argv[1] == 'train':
 elif sys.argv[1] == 'video':
     clf = pickle.load(open(model,'rb'))
     #clf = joblib.load(model)
-    fgbg = cv2.BackgroundSubtractorMOG()
+    if cv2.__version__ < '3.0.0':
+        fgbg = cv2.BackgroundSubtractorMOG()
+    else:
+        fgbg = cv2.createBackgroundSubtractorMOG2()
     #fgbg = cv2.BackgroundSubtractorMOG(history=5,nmixtures=10,backgroundRatio=0.2)
     #vc = cv2.VideoCapture('barca.mp4')
     #vc = cv2.VideoCapture('beatles.mp4')
     #vc = cv2.VideoCapture('soccer.mp4')
     #vc = cv2.VideoCapture('liverpool.mp4')
-    vc = cv2.VideoCapture('/home/prithvi/dsets/Surveillance/AVSS_AB_Easy_Divx.avi')
+    vc = cv2.VideoCapture(VIDEO_PATH)
     
     #vc = cv2.VideoCapture('/home/prithvi/dsets/Football_fixed_camera/filmrole1.avi')
     #vc = cv2.VideoCapture('/home/prithvi/dsets/Football_fixed_camera/filmrole2.avi')
@@ -103,8 +107,8 @@ elif sys.argv[1] == 'video':
     out = cv2.VideoWriter('output.avi',fourcc, 25, FSIZE)
     
     if vc.isOpened():
-        fps = vc.get(cv2.cv.CV_CAP_PROP_FPS)
-        print fps
+        #fps = vc.get(cv2.cv.CV_CAP_PROP_FPS)
+        #print fps
         for i in range(260):
             rval,frame = vc.read()
         if inria.COL == False:
@@ -124,7 +128,10 @@ elif sys.argv[1] == 'video':
         fg = cv2.GaussianBlur(fg,(5,5),0)
         fg = cv2.threshold(fg,125,255,cv2.THRESH_OTSU)[1]
         mask = fg.copy()
-        contours,hierarchy = cv2.findContours(fg,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+        if cv2.__version__ < '3.0.0':
+            contours,hierarchy = cv2.findContours(fg,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+        else:
+            __, contours,hierarchy = cv2.findContours(fg,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
         px = []
         loc = []
         for c in contours:
