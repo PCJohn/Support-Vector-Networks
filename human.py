@@ -105,17 +105,17 @@ def do_video():
     while read_success:
         frame = cv2.resize(frame, FSIZE)
         #fg = fgbg.apply(frame)
-        fg = fgbg.apply(frame, learningRate=0.01)
+        foreground = fgbg.apply(frame, learningRate=0.01)
 
         kernel = np.ones((3, 3), np.uint8)
-        fg = cv2.dilate(fg, kernel, iterations=2)
-        fg = cv2.GaussianBlur(fg, (5, 5), 0)
-        fg = cv2.threshold(fg, 125, 255, cv2.THRESH_OTSU)[1]
-        mask = fg.copy()
+        foreground = cv2.dilate(foreground, kernel, iterations=2)
+        foreground = cv2.GaussianBlur(foreground, (5, 5), 0)
+        foreground = cv2.threshold(foreground, 125, 255, cv2.THRESH_OTSU)[1]
+        mask = foreground.copy()
         if cv2.__version__ < '3.0.0':
-            contours, hierarchy = cv2.findContours(fg, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+            contours, hierarchy = cv2.findContours(foreground, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         else:
-            __, contours, hierarchy = cv2.findContours(fg, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+            __, contours, hierarchy = cv2.findContours(foreground, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         px = []
         loc = []
         for c in contours:
@@ -131,7 +131,7 @@ def do_video():
 
         #Display frame
         cv2.imshow('input', frame)
-        cv2.imshow('fg', fg)
+        cv2.imshow('fg', foreground)
         cv2.imshow('mask', mask)
         #Add frame to frame history
         #frame_arr.append(frame)
