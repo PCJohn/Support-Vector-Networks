@@ -104,9 +104,7 @@ def do_video():
     #frame_arr = []
     while read_success:
         frame = cv2.resize(frame, FSIZE)
-        #fg = fgbg.apply(frame)
         foreground = fgbg.apply(frame, learningRate=0.01)
-
         kernel = np.ones((3, 3), np.uint8)
         foreground = cv2.dilate(foreground, kernel, iterations=2)
         foreground = cv2.medianBlur(foreground, 5)
@@ -118,11 +116,11 @@ def do_video():
             __, contours, hierarchy = cv2.findContours(foreground, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         px = []
         loc = []
-        for c in contours:
-            (x,y,w,h) = cv2.boundingRect(c)
-            if (w > 5) & (h > 5):
-                px.append(inria.feat(cv2.resize(frame[y:y+h, x:x+w], inria.SIZE)))
-                loc.append(((x, y), (x+w, y+h)))
+        for contour in contours:
+            xpos, ypos, width, height = cv2.boundingRect(contour)
+            if (width > 5) & (height > 5):
+                px.append(inria.feat(cv2.resize(frame[ypos:ypos+height, xpos:xpos+width], inria.SIZE)))
+                loc.append(((xpos, ypos), (xpos+width, ypos+height)))
         if len(px) > 0:
             py = clf.predict(np.array(px))
             for y, l in zip(py, loc):
