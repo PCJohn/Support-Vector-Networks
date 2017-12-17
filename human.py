@@ -109,7 +109,7 @@ def do_video():
 
         kernel = np.ones((3, 3), np.uint8)
         foreground = cv2.dilate(foreground, kernel, iterations=2)
-        foreground = cv2.GaussianBlur(foreground, (5, 5), 0)
+        foreground = cv2.medianBlur(foreground, 5)
         foreground = cv2.threshold(foreground, 125, 255, cv2.THRESH_OTSU)[1]
         mask = foreground.copy()
         if cv2.__version__ < '3.0.0':
