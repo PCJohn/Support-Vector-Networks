@@ -4,8 +4,8 @@ import random
 import numpy as np
 from ast import literal_eval
 
-COLOR = False
-PATH = '/Users/jkausha/Projects/Support-Vector-Networks/datasets/INRIAPerson/'
+COL = False
+PATH = '/home/prithvi/dsets/INRIAPerson/'
 POS = 1
 NEG = 0
 SIZE = (64,128)
@@ -22,7 +22,7 @@ def disp(lab,img):
 
 def read(path):
     img = cv2.imread(path)
-    if COLOR == False:
+    if COL == False:
         img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     return img
 
@@ -56,7 +56,7 @@ def load():
     for ant in os.listdir(os.path.join(PATH,'Train/neg')):
         img = cv2.imread(os.path.join(PATH,'Train/neg',ant))
         #disp(ant,img)
-        if COLOR == False:
+        if COL == False:
             img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         nds.append((cv2.resize(img,SIZE),NEG))
         for sx,sy in [(8,16),(32,64)]:
