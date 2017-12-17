@@ -93,9 +93,10 @@ def do_video():
         for contour in contours:
             xpos, ypos, width, height = cv2.boundingRect(contour)
             if (width > 5) & (height > 5):
-                resized_rectangle = cv2.resize(frame[ypos:ypos+height, xpos:xpos+width], inria.SIZE)
+                xmax, ymax = xpos + width, ypos + height
+                resized_rectangle = cv2.resize(frame[ypos:ymax, xpos:xmax], inria.SIZE)
                 to_classify.append(inria.feat(resized_rectangle))
-                location.append(((xpos, ypos), (xpos+width, ypos+height)))
+                location.append(((xpos, ypos), (xmax, ymax)))
         if to_classify:
             classification = clf.predict(np.array(to_classify))
             for result, l in zip(classification, location):
