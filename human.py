@@ -98,7 +98,7 @@ def do_video():
     if video.isOpened():
         for i in range(260):
             read_success, frame = video.read()
-        if inria.COL == False:
+        if not inria.COL:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     fcount = 1
     #frame_arr = []
@@ -138,7 +138,7 @@ def do_video():
         out.write(frame)
         #Read new frame
         read_success, frame = video.read()
-        if inria.COL == False:
+        if not inria.COL:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         fcount += 1
         #Exit on escape
