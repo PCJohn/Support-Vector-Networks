@@ -32,6 +32,32 @@ def frames_to_video(frame_arr, outputpath, fps):
         out.write(frame)
     out.release()
 
+# Unsused atm
+# def plot_boxes(fg, frame):
+#     #return fg
+#     kernel = np.ones((35, 35), np.uint8)
+#     fg = cv2.dilate(fg, kernel, iterations=2)
+#     #return fg
+
+#     """mask = np.zeros(fg.shape).astype(np.float32)
+#     contours,hierarchy = cv2.findContours(fg, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+#     for c in contours:
+#         (x,y,w,h) = cv2.boundingRect(c)
+#         if (w > 0) & (h > 0):
+#             mask[y:y+h,x:x+w] += 1
+#     mx = np.max(mask)
+#     if mx > 0:
+#         mask /= mx
+#     mask = np.uint8(255*mask)
+#     #mask = cv2.GaussianBlur(mask,(35,35),0)
+#     ret2,mask = cv2.threshold(mask,125,255,cv2.THRESH_OTSU)"""
+
+#     contours,hierarchy = cv2.findContours(fg, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+#     for c in contours:
+#         x, y, w, h = cv2.boundingRect(c)
+#         if (w > 5) & (h > 5):
+#             cv2.rectangle(frame, (x,y), (x+w,y+h), (255,255,255), 5)
+#     return frame
 
 def train():
     X, Y, vX, vY = inria.load()
