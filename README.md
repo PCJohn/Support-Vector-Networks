@@ -24,7 +24,11 @@ The negative image consisted of negative samples provided in the dataset. Along 
 
 The model was trained using the Scikit-Learn SVM library. Running a grid search, we found the ideal parameters to be C=5.0 and Gamma=0.01. This gives a training accuracy of 100 and a validation accurcay of 97.75%. To train a new model using the module, set the path to save the new model in the variable 'model' in human.py (model = '<path_to_model>') and run:
 
-    python human.py train
+    python human2.py train
+
+If you have OpenCV version >= 3, run:
+
+    python human3.py train
 
 This will load the dataset, train the SVM and save the model to the specified location.
 
