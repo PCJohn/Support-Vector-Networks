@@ -7,6 +7,10 @@ This is a module to detect humans using SVMs. The module may be used to train a 
     Scikit-Learn
     OpenCV for Python
 
+Note that you must have FFmpeg installed to load the video files in OpenCV. You can accomplish this with
+
+	brew install opencv3 --with-ffmpeg
+
 Given the differences in OpenCV versions 2 and 3, we provide equivalent scripts for both versions.
 
 **Dataset**
