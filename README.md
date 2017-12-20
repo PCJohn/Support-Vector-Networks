@@ -7,7 +7,7 @@ This is a module to detect humans using SVMs. The module may be used to train a 
     Scikit-Learn
     OpenCV for Python
 
-Given the differences in OpenCV versions 2 and 3, we provide equivalent scripts for both versions, 
+Given the differences in OpenCV versions 2 and 3, we provide equivalent scripts for both versions.
 
 **Dataset**
 
