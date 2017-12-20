@@ -32,4 +32,4 @@ This will load the dataset, train the SVM and save the model to the specified lo
 
 We use the background subtractor provided in the cv2 library and experimented with background SubtractorMOG and backgroundSubtractorKNN (available in OpenCV version 3). These output frames with a binary mask indicating the position of moving objects (foreground). Morphological dilation with blurring followed by thresholding was used to connected the generated contours. The majority of the tuning available pertains to blurring the forground to find contours. The sweet spot between oversmearing and fine contours seems to be application specific and may need to be tuned depending on the type of video used an input.
 
-We ran the module on a set of videos. The output can be seen here: <link to youtube>
+We tested the module on a set of different types of videos. A demo can be seen here: https://youtu.be/dmmzQwkGNEc 
